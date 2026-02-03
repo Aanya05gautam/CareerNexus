@@ -1,0 +1,215 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 222 47% 11%;
+    --foreground: 213 31% 91%;
+    
+    --card: 222 47% 11%;
+    --card-foreground: 213 31% 91%;
+    
+    --popover: 222 47% 11%;
+    --popover-foreground: 213 31% 91%;
+    
+    /* Vibrant AI Blue */
+    --primary: 217 91% 60%;
+    --primary-foreground: 210 40% 98%;
+    
+    --secondary: 222 47% 11%;
+    --secondary-foreground: 210 40% 98%;
+    
+    --muted: 223 47% 11%;
+    --muted-foreground: 215.4 16.3% 56.9%;
+    
+    --accent: 216 34% 17%;
+    --accent-foreground: 210 40% 98%;
+    
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 224.3 76.3% 48%;
+    
+    --radius: 0.75rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border selection:bg-primary/30;
+  }
+  body {
+    @apply bg-[#020617] text-foreground antialiased;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+}
+
+@layer components {
+  .glass-card {
+    @apply bg-white/5 backdrop-blur-xl border border-white/10 shadow-[0_8px_32px_0_rgba(0,0,0,0.37)] transition-all duration-300;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .glass-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+    transition: left 0.5s;
+  }
+  
+  .glass-card:hover::before {
+    left: 100%;
+  }
+  
+  .glass-card:hover {
+    @apply border-white/20 shadow-[0_12px_48px_0_rgba(59,130,246,0.15)] transform scale-[1.02];
+  }
+  
+  .glass-navbar {
+    @apply bg-[#020617]/90 backdrop-blur-xl border-b border-white/5 sticky top-0 z-50;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
+  }
+
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-cyan-300 to-indigo-500;
+    background-size: 200% auto;
+    animation: gradient-shift 3s ease infinite;
+  }
+
+  .ai-glow {
+    @apply relative;
+    transition: all 0.3s ease;
+  }
+  
+  .ai-glow::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 2px;
+    background: linear-gradient(135deg, rgba(59,130,246,0.5), rgba(147,51,234,0.5));
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  
+  .ai-glow:hover::after {
+    opacity: 1;
+  }
+  
+  .ai-glow:hover {
+    box-shadow: 0 0 20px rgba(59,130,246,0.4), 0 0 40px rgba(147,51,234,0.2);
+  }
+}
+
+@keyframes gradient-shift {
+  0%, 100% {
+    background-position: 0% center;
+  }
+  50% {
+    background-position: 100% center;
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  33% {
+    transform: translateY(-10px) rotate(2deg);
+  }
+  66% {
+    transform: translateY(10px) rotate(-2deg);
+  }
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(59,130,246,0.3);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(59,130,246,0.6);
+  }
+}
+
+/* Custom Mesh Gradient Background */
+.mesh-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+  background-color: #020617;
+  background-image: 
+    radial-gradient(at 0% 0%, hsla(217,100%,39%,0.2) 0px, transparent 50%),
+    radial-gradient(at 50% 0%, hsla(237,100%,39%,0.15) 0px, transparent 50%),
+    radial-gradient(at 100% 0%, hsla(267,100%,39%,0.2) 0px, transparent 50%),
+    radial-gradient(at 0% 50%, hsla(217,100%,39%,0.1) 0px, transparent 50%),
+    radial-gradient(at 100% 50%, hsla(267,100%,39%,0.1) 0px, transparent 50%),
+    radial-gradient(at 0% 100%, hsla(217,100%,39%,0.15) 0px, transparent 50%),
+    radial-gradient(at 50% 100%, hsla(237,100%,39%,0.1) 0px, transparent 50%),
+    radial-gradient(at 100% 100%, hsla(267,100%,39%,0.15) 0px, transparent 50%);
+  animation: mesh-move 20s ease-in-out infinite;
+}
+
+@keyframes mesh-move {
+  0%, 100% {
+    background-position: 0% 0%, 50% 0%, 100% 0%, 0% 50%, 100% 50%, 0% 100%, 50% 100%, 100% 100%;
+  }
+  50% {
+    background-position: 10% 10%, 60% 10%, 90% 10%, 10% 60%, 90% 60%, 10% 90%, 60% 90%, 90% 90%;
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* Smooth scroll */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(59, 130, 246, 0.3);
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(59, 130, 246, 0.5);
+}
+
+
+/* Utility to hide scrollbars while keeping functionality */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
